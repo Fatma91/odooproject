@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_sessions"
+            name="product report"
+            string="product Report"
+            model="odoowarehouse.addproduct"
+            file="odoowarehouse/report/products.mako"
+        report_type="webkit"/>
+    </data>
+</openerp>

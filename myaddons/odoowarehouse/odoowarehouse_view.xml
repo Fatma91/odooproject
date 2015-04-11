@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- ...........................................warehouse................................................... -->
+
+        <record model="ir.ui.view" id="odoowarehouse_warehouse_tree">
+            <field name="name">odoowarehouse.warehouse.tree</field>
+            <field name="model">odoowarehouse.warehouse</field>
+            <field name="arch" type="xml">
+                <tree string="My Warehouse">
+                    <field name="name" string="الاسم"/>
+                    <field name="address" string="المكان"/>
+                    <field name="keeper_ids" string="المسئولين"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="odoowarehouse_warehouse_form">
+            <field name="name">odoowarehouse.warehouse.form</field>
+            <field name="model">odoowarehouse.warehouse</field>
+            <field name="arch" type="xml">
+                <form string="Mywarehouse" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="name" string="الاسم"/>
+                        </group>
+                        <group>
+                            <field name="address" string="المكان"/>
+                        </group>
+                        <group>
+                            <field name="keeper_ids" string="المسئولين"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="mywarehouse_warehouse_action" model="ir.actions.act_window">
+            <field name="name">mywarehouse warehouse</field>
+            <field name="res_model">odoowarehouse.warehouse</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="student_name" name="المخزن" parent="menu1" action="mywarehouse_warehouse_action"/>
+
+
+        <!-- ...........................................hr................................................... -->
+
+        <record model="ir.ui.view" id="myhr_employee_tree">
+            <field name="name">myhr.employee</field>
+            <field name="model">myhr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="employees" version="7.0">
+                    <field name="name" string="الاسم"/>
+                    <field name="age" string="العمر"/>
+                    <field name="tel" string="رقم التليفون"/>
+                    <field name="gender" string="النوع"/>
+                    <field name="salary" string="المرتب"/>
+                    <field name="user_login" required="1"/>
+                    <field name="warehouse_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="myhr_employee_form">
+            <field name="name">Hr</field>
+            <field name="model">myhr.employee</field>
+            <field name="arch" type="xml">
+                <form string="employees" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="picture" widget="image" string="الصورة الشخصية"/>
+                        </group>
+                        <group>
+                            <group string="Basic Info">
+                                <field name="name" string="الاسم"/>
+                                <field name="age" string="العمر"/>
+                                <field name="salary" string="المرتب"/>
+                                <field name="tel" string="رقم التليفون"/>
+                                <field name="gender" string="النوع"/>
+                            </group>
+                            <group string="Role">
+                                <!--<field name="career" string="الوظيفة"/>-->
+                                <field name="user_login" required="1"/>
+                                <field name="warehouse_id"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="myhr_employee_action" model="ir.actions.act_window">
+            <field name="name">HR Employee</field>
+            <field name="res_model">myhr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="employee" name="الموظفين" parent="menu1" action="myhr_employee_action"/>
+        <!--.......................................category......................................................-->
+        <record id="product_category_tree" model="ir.ui.view">
+            <field name="name">product.category.tree</field>
+            <field name="model">odoowarehouse.category</field>
+            <field name="arch" type="xml">
+                <tree string="categories">
+                    <field name="name" string="الاسم"/>
+                    <field name="catcode" string="كود الفئه "/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_category_form" model="ir.ui.view">
+            <field name="name">product.category.form</field>
+            <field name="model">odoowarehouse.category</field>
+            <field name="arch" type="xml">
+                <form string="categories" version="7.0">
+                    <sheet>
+                        <notebook>
+                            <page string="Categories">
+                                <group>
+                                    <field name="name" string="الاسم"/>
+                                    <field name="catcode" string="كود الفئه "/>
+                                    <field name="subcategory_ids">
+                                        <tree editable="bottom">
+                                            <field name="name" string="الاسم"/>
+                                            <field name="subcatcode" string="كود الفئه الفرعيه "/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_category_action" model="ir.actions.act_window">
+            <field name="name">product_category</field>
+            <field name="res_model">odoowarehouse.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="add" name="المخازن والمنتجات"/>
+        <menuitem id="menu1" name="المنتجات" parent="add"/>
+        <menuitem id="side2_menu" name="فئه المنتج" parent="menu1" action="product_category_action"/>
+
+        <!--.......................................subcategory......................................................-->
+        <record id="product_subcategory_tree" model="ir.ui.view">
+            <field name="name">product.subcategory.tree</field>
+            <field name="model">odoowarehouse.subcategory</field>
+            <field name="arch" type="xml">
+                <tree string="Subcategory">
+                    <field name="name" string="الاسم"/>
+                    <field name="subcatcode" string="كود الفئه الفرعيه "/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_subcategory_form" model="ir.ui.view">
+            <field name="name">product.subcategory.form</field>
+            <field name="model">odoowarehouse.subcategory</field>
+            <field name="arch" type="xml">
+                <form string="subcategories" version="7.0">
+                    <sheet>
+                        <notebook>
+                            <page string="الفئه ">
+                                <group>
+                                    <field name="name" string="الاسم"/>
+                                    <field name="subcatcode" string="كود الفئه الفرعيه "/>
+                                </group>
+                            </page>
+                            <page string="category">
+                                <group>
+                                    <field name="cat_id" string="كود الفئه "/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_subcategory_action" model="ir.actions.act_window">
+            <field name="name">product_subcategory</field>
+            <field name="res_model">odoowarehouse.subcategory</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="subcat" name="الفئه الفرعيه للمنتج" parent="menu1" action="product_subcategory_action"/>
+
+        <!--.......................................subsubcategory......................................................-->
+        <record id="product_sub_subcategory_tree" model="ir.ui.view">
+            <field name="name">product.sub.subcategory.tree</field>
+            <field name="model">odoowarehouse.sub.subcategory</field>
+            <field name="arch" type="xml">
+                <tree string="Subsubcategory">
+                    <field name="name" string="الاسم"/>
+                    <field name="sub_subcatcode" string="كود القسم"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_sub_subcategory_form" model="ir.ui.view">
+            <field name="name">product.sub.subcategory.form</field>
+            <field name="model">odoowarehouse.sub.subcategory</field>
+            <field name="arch" type="xml">
+                <form string="Sub_subcategory" version="7.0">
+                    <sheet>
+                        <notebook>
+                            <page string="القسم">
+                                <group>
+                                    <field name="name" string="الاسم"/>
+                                    <field name="sub_subcatcode" string="كود القسم"/>
+                                </group>
+                            </page>
+                            <page string="الفئه - الفئه الفرعيه ">
+                                <group>
+                                    <field name="cat_id" string="كود الفئه "/>
+                                    <field name="subcat_id" string="كود الفئه الفرعيه "/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_sub_subcategory_action" model="ir.actions.act_window">
+            <field name="name">product_sub_subcategory</field>
+            <field name="res_model">odoowarehouse.sub.subcategory</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="subsubcat" name="قسم المنتج" parent="menu1" action="product_sub_subcategory_action"/>
+
+        <!--.......................................product......................................................-->
+        <record model="workflow" id="wkf_product">
+            <field name="name">product.wkf</field>
+            <field name="osv">odoowarehouse.addproduct</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="act_new">
+            <field name="wkf_id" ref="wkf_product"/>
+            <field name="flow_start" eval='True'/>
+            <field name="name">New</field>
+            <field name="kind">function</field>
+            <field name="action">product_new()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_recieved">
+            <field name="wkf_id" ref="wkf_product"/>
+            <field name="name">recieved</field>
+            <field name="kind">function</field>
+            <field name="action">product_received()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_waiting">
+            <field name="wkf_id" ref="wkf_product"/>
+            <field name="name">waiting for check</field>
+            <field name="kind">function</field>
+            <field name="action">product_waiting()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_accept">
+            <field name="wkf_id" ref="wkf_product"/>
+            <field name="name">Accept</field>
+            <field name="kind">function</field>
+            <field name="action">product_accepted()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_keeper_confirm">
+            <field name="wkf_id" ref="wkf_product"/>
+            <field name="name">Keeper_comfirm</field>
+            <field name="kind">function</field>
+            <field name="action">product_confirm_keeper()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_manger_confirm">
+            <field name="wkf_id" ref="wkf_product"/>
+            <field name="name">manger_confirm</field>
+            <field name="kind">function</field>
+            <field name="action">product_confirm_manger()</field>
+        </record>
+
+
+        <record model="workflow.activity" id="act_entered">
+            <field name="wkf_id" ref="wkf_product"/>
+            <field name="flow_stop">True</field>
+            <field name="name">Entered</field>
+            <field name="kind">function</field>
+            <field name="action">product_entered()</field>
+        </record>
+        <!-- transition-->
+        <record model="workflow.transition" id="t1">
+            <field name="act_from" ref="act_new"/>
+            <field name="act_to" ref="act_recieved"/>
+            <field name="signal">product_received</field>
+        </record>
+
+        <record model="workflow.transition" id="t2">
+            <field name="act_from" ref="act_recieved"/>
+            <field name="act_to" ref="act_waiting"/>
+            <field name="signal">product_waiting</field>
+        </record>
+
+        <record model="workflow.transition" id="t3">
+            <field name="act_from" ref="act_waiting"/>
+            <field name="act_to" ref="act_accept"/>
+            <field name="signal">accept-commit1</field>
+        </record>
+        <record model="workflow.transition" id="t4">
+            <field name="act_from" ref="act_waiting"/>
+            <field name="act_to" ref="act_accept"/>
+            <field name="signal">accept-commit2</field>
+        </record>
+        <record model="workflow.transition" id="t5">
+            <field name="act_from" ref="act_waiting"/>
+            <field name="act_to" ref="act_accept"/>
+            <field name="signal">accept-commit3</field>
+        </record>
+        <record model="workflow.transition" id="t6">
+            <field name="act_from" ref="act_accept"/>
+            <field name="act_to" ref="act_keeper_confirm"/>
+            <field name="signal">product_keeper_confirm</field>
+        </record>
+
+        <record model="workflow.transition" id="t6">
+            <field name="act_from" ref="act_keeper_confirm"/>
+            <field name="act_to" ref="act_manger_confirm"/>
+            <field name="signal">product_manager_confirm</field>
+        </record>
+        <record model="workflow.transition" id="t6">
+            <field name="act_from" ref="act_manger_confirm"/>
+            <field name="act_to" ref="act_entered"/>
+            <field name="signal">product_enter_the_stock</field>
+        </record>
+
+        <record id="product_add_tree" model="ir.ui.view">
+            <field name="name">product.add.tree</field>
+            <field name="model">odoowarehouse.addproduct</field>
+            <field name="arch" type="xml">
+                <tree string="Product">
+                    <field name="Pname" string="اسم المنتج"/>
+                    <field name="Photo" widget="image" string="صوره المنتج"/>
+                    <field name="Price" string="سعر المنتج"/>
+                    <field name="Procode" string=" كود المنتج "/>
+                    <field name="case" string="الحاله"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_add_form" model="ir.ui.view">
+            <field name="name">product.add.form</field>
+            <field name="model">odoowarehouse.addproduct</field>
+            <field name="arch" type="xml">
+                <form string="Product" version="7.0">
+                    <sheet>
+                        <header>
+                            <field name="State" widget="statusbar"
+                                   statusbar_visible="new,received_by_keeper,waiting_for_check,accepted,confirm_by_keeper,confirm_by_manger,entered_the_stock"/>
+                        </header>
+                        <notebook>
+                            <page string="خصائص المنتج">
+                                <group>
+                                    <field name="Pname" string="اسم المنتج"/>
+                                    <field name="Photo" widget="image" string="صوره المنتج"/>
+                                    <field name="Price" string="سعر المنتج"/>
+                                    <field name="Pmax" string="اكبر كميه"/>
+                                    <field name="Pmin" string="اقل كميه"/>
+                                    <field name="Proid" string="رقم المنتج"/>
+                                    <field name="case" string="الحاله"/>
+                                    <field name="warehouse_id" string='المخزن'/>
+                                    <field name="State" string='المرحله'/>
+                                </group>
+                            </page>
+                            <page string="الفئه - الفئه الفرعيه - القسم للمنتج">
+                                <group>
+                                    <field name="cat_id" string="كود الفئه "/>
+                                    <field name="subcat_id" string="كود الفئه الفرعيه "/>
+                                    <field name="subsubcat_id" string=" كود القسم "/>
+                                    <field name="Procode" string="كود المنتج "/>
+                                </group>
+                            </page>
+                        </notebook>
+                        <separator string="المراحل التى يمر بها المنتج" colspan="4"/>
+                        <group colspan="4" col="3">
+                            <button name="product_received" string="Recieved" State="New"/>
+                            <button name="product_waiting" string="Waiting for check" State="received_by_keeper"/>
+                            <button name="product_accept-commit1" string="Commitee 1" State="waiting_for_check"/>
+                            <button name="product_accept-commit2" string="Commitee 2" State="waiting_for_check"/>
+                            <button name="product_accept-commit3" string="Commitee 3" State="waiting_for_check"/>
+                            <button name="product_keeper_confirm" string="Keeper Confirm" State="accepted"/>
+                            <button name="product_manager_confirm" string="Manager Confirm" State="keeperConfirm"/>
+                            <button name="product_enter_the_stock" string="Super Manager Confirm"
+                                    State="managerConfirm"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_add_action" model="ir.actions.act_window">
+            <field name="name">product_add</field>
+            <field name="res_model">odoowarehouse.addproduct</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="productadd" name="اضافه منتج" parent="menu1" action="product_add_action"/>
+
+   <!--....................................... search for product...............................................-->
+        <record id="search_product_action" model="ir.actions.act_window">
+            <field name="name">search.product</field>
+            <field name="res_model">odoowarehouse.search</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+         <!--<record id="search_product_tree" model="ir.ui.view">-->
+            <!--<field name="name">search.producty.tree</field>-->
+            <!--<field name="model">odoowarehouse.search</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="search">-->
+                    <!--<field name="search" string="البحث عن "/>-->
+                    <!--<field name="select" string="البحث باستخدام"/>-->
+                    <!--<field name="result" string="ناتج البحث "/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="search_product_form" model="ir.ui.view">
+            <field name="name">search.product.form</field>
+            <field name="model">odoowarehouse.search</field>
+            <field name="arch" type="xml">
+                <form string="search" version="7.0">
+                     <sheet>
+                        <notebook>
+                            <page string="بحث متقدم">
+                                <group>
+                                    <field name="search" string="البحث عن "/>
+                                    <field name="select"   on_change="find_product(search,select)" string="البحث باستخدام"/>
+                                    <field name="result" string="ناتج البحث "/>
+                                    <button name="%(search_product_action)d"  type="action" string="بحث متقدم"/>
+                                </group>
+                            </page>
+                        </notebook>
+                      </sheet>
+                </form>
+            </field>
+        </record>
+        <menuitem id="search" name="البحث عن منتج" parent="menu1" action="search_product_action"/>
+
+
+
+    </data>
+</openerp>

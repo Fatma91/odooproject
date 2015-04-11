@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.module.category" id="iti_cat">
+            <field name="name">الوظيفة</field>
+        </record>
+
+
+        <record model="res.groups" id="myhr_2men">
+            <field name="name">امين مخزن</field>
+            <field name="category_id" ref="iti_cat"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+
+        <record model="res.groups" id="myhr_mderm5zn">
+            <field name="name">مدير مخزن</field>
+            <field name="category_id" ref="iti_cat"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('myhr_2men'))]"/>
+        </record>
+
+
+        <record model="res.groups" id="myhr_mderm5aazn">
+            <field name="name">مدير المخازن</field>
+            <field name="category_id" ref="iti_cat"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('myhr_mderm5zn'))]"/>
+        </record>
+
+        <record model="res.groups" id="myhr_3dolgna">
+            <field name="name">عضو من اعضاء اللجنة</field>
+            <field name="category_id" ref="iti_cat"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('myhr_mderm5aazn'))]"/>
+        </record>
+
+        <record model="res.groups" id="myhr_employee">
+            <field name="name">موظف</field>
+            <field name="category_id" ref="iti_cat"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('myhr_3dolgna'))]"/>
+        </record>
+
+
+        <record model="res.groups" id="myhr_mdermozfen">
+            <field name="name">مدير مجموعة من الموظفين</field>
+            <field name="category_id" ref="iti_cat"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('myhr_employee'))]"/>
+        </record>
+
+
+    </data>
+</openerp>
